@@ -27,7 +27,6 @@
     "gatsby-source-graphql": "^4.8.0",
     "gatsby-transformer-remark": "^5.8.0",
     "gatsby-transformer-sharp": "^4.7.0",
-    "node-sass": "^7.0.1",
     "prop-types": "^15.8.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
@@ -61,7 +60,7 @@
   ],
   "license": "0BSD",
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   },
   "scripts": {
     "build": "gatsby build",
