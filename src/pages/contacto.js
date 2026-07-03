@@ -1,12 +1,52 @@
-
 import { StaticImage } from 'gatsby-plugin-image';
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '../components/layout';
 import { Formik,Form,Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup'
+import axios from 'axios'
+import Alerta from '../components/Alerta';
+
+
 // import emailjs from '@emailjs/browser'
 
 export default function Contacto () {
+
+    const [alerta, setAlerta] = useState(false)
+
+
+//   const handleSubmit = async (valores) => {
+//     try {
+//     const url = 'http://localhost:4000/api/usuarios'
+//      const respuesta = await fetch (url, {
+//         method: 'POST',
+//         body: JSON.stringify (valores),
+//         headers: {
+//           'Content-Type': 'aplication.json'
+//         }
+//       })
+// console.log(respuesta)
+// const resultado = await respuesta.json()
+// console.log(resultado)
+
+//     } catch (error) {
+//       console.log(error)
+//     }
+//   }
+
+const handleSubmit = async (valores) => { try {
+  const {data} = await axios.post ('http://localhost:4000/api/usuarios',
+   valores)
+   console.log(data.mensaje);
+  setAlerta ({
+    msg: 'El Formulario se ha Enviado exitosamente',
+    visible: true
+  })
+
+} catch (error) {
+  console.log(error)
+}
+  
+}
 
   const formularioSchema = Yup.object().shape({  
   nombre: Yup.string()
@@ -21,6 +61,7 @@ export default function Contacto () {
   mensaje:'',
 })
 
+const {msg} = alerta
 // const sendEmail = (e) => {
 //   e.preventDefault();
 
@@ -50,13 +91,14 @@ export default function Contacto () {
           <h1 className='text-5xl mb-3 font-extralight '>Contacto</h1>
           <p className='font-normal mb-10'>Averiguá cuando inicia el próximo curso para Principiantes.</p>
           <Formik 
+          
           initialValues={{
             nombre:'',
             email:'',
             telefono:'',
             mensaje:'',
           }}
-          onSubmit={(valores) => (console.log(valores))}
+          onSubmit={handleSubmit}
           validationSchema={formularioSchema}
 
           >
@@ -113,9 +155,17 @@ export default function Contacto () {
             className='bg-red-800 msm:w-11/12 w-3/4 p-2 rounded-md uppercase font-semibold cursor-pointer hover:bg-red-900 transition-all'
             value='Enviar'
             />
+            {msg && <Alerta alerta={alerta}/>}
+            {/* <div  className='text-white hidden msm:w-11/12 uppercase font-normal text-center bg-slate-700 mt-4 w-3/4 p-2 rounded-md'> El Formulario se ha enviado Correctamente</div> */}
+            
           </Form>
+          
           )}
+          
+        
           </Formik>
+
+          
           </div>
         
         </div>
@@ -125,7 +175,9 @@ export default function Contacto () {
     
    
     </div>
-)
+)  
+  
     }
-
+    
+    
 

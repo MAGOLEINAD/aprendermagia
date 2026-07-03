@@ -58,6 +58,9 @@ typings/
 .cache/
 public
 
+# Sitio estatico aparte, muy pesado para este repo (~800MB)
+apuntesdemagia/
+
 # Mac files
 .DS_Store
 
